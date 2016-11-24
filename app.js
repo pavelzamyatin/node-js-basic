@@ -7,7 +7,11 @@ var app = express();
 // tell express that we want to use EJS view engine
 app.set('view engine', 'ejs');
 
-// routes
+// using middleware to serve static
+app.use('/assets', express.static('assets'));
+app.use('/profile/assets', express.static('assets'));
+
+// ejs routes
 app.get('/', function(req, res) {
   res.render('index');
 })
