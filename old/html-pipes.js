@@ -8,17 +8,13 @@ const server = http.createServer(function(req, res) {
   console.log('request was made: ' + req.url);
 
   // create response - header and message
-  res.writeHead(200, {'Content-Type' : 'application/json'});
+  res.writeHead(200, {'Content-Type' : 'text/html'});
 
-  // create object
-  var myObj = {
-    name: 'Corw',
-    job: 'developer',
-    age: 33
-  }
+  // create new read stream
+  const myReadStream = fs.createReadStream(__dirname + '/index.html', 'utf8');
 
-  // send json-string to the client
-  res.end(JSON.stringify(myObj));
+  // piping chunks through the pipe to the response instead of res.end(data)
+  myReadStream.pipe(res);
 
 });
 
