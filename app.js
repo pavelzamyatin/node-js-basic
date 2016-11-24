@@ -1,34 +1,34 @@
-// add http module
-const http = require('http');
-const fs = require('fs');
+// add express module
+var express = require('express');
 
-// create NodeJS server
-const server = http.createServer(function(req, res) {
-  // info about request url
-  console.log('request was made: ' + req.url);
+// create application from express
+var app = express();
 
-  if (req.url === '/home' || req.url === '/') {
-    res.writeHead(200, {'Content-Type' : 'text/html'});
-    fs.createReadStream(__dirname + '/index.html').pipe(res);
+// tell express that we want to use EJS view engine
+app.set('view engine', 'ejs');
 
-  } else if (req.url === '/contact') {
-    res.writeHead(200, {'Content-Type' : 'text/html'});
-    fs.createReadStream(__dirname + '/contact.html').pipe(res);
+// routes
+app.get('/', function(req, res) {
+  res.render('index');
+})
 
-  } else if (req.url === '/api/people') {
-    var people = [
-      { name: 'corw', age: 22 },
-      { name: 'kate', age: 15 }]
-    res.writeHead(200, {'Content-Type' : 'application/json'});
-    res.end(JSON.stringify(people));
+app.get('/contact', function(req, res) {
+  res.render('contact');
+})
 
-  } else {
-    res.writeHead(404, {'Content-Type' : 'text/html'});
-    fs.createReadStream(__dirname + '/404.html').pipe(res);
+// dynamic routes with ejs views
+app.get('/profile/:name', function(req, res) {
+
+  var data = {
+    age: 21,
+    job: 'developer',
+    hobbies: ['boadgames', 'tramping', 'photography']
   }
 
-});
+  // pass properties to the template
+  res.render('profile', {
+    person: req.params.name, //from get route
+    data: data}); // from object
+})
 
-// listen to 3000 port and ip-adress
-server.listen(3000, '127.0.0.1');
-console.log('Now we are listening port 3000...');
+app.listen(3000);
