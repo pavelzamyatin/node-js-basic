@@ -12,7 +12,7 @@
     <h1>Contact us</h1>
     <p>We are cool bro! Feel free to contact us at any time!</p>
 
-    <form id="contact-form">
+    <form id="contact-form" method="POST" action="/contact">
       <label for="who">Who do you want to contact?</label>
       <input type="text" name="who" value="<%= qs.person %>"/>
       <label for="department">Which department?</label>

@@ -1,8 +1,12 @@
-// add express module
+// add modules
 var express = require('express');
+var bodyParser = require('body-parser');
 
 // create application from express
 var app = express();
+
+// create application/x-www-form-urlencoded parser
+var urlencodedParser = bodyParser.urlencoded({ extended: false })
 
 // tell express that we want to use EJS view engine
 app.set('view engine', 'ejs');
@@ -22,6 +26,13 @@ app.get('/', function(req, res) {
 app.get('/contact', function(req, res) {
   res.render('contact', {
     qs: req.query });
+})
+
+// post request using body-parser module
+app.post('/contact', urlencodedParser, function(req, res) {
+  // console.log(req.body);
+  if (!req.body) return res.sendStatus(400)
+  res.send(req.body);
 })
 
 // dynamic routes with ejs views
