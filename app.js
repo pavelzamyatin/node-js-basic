@@ -16,8 +16,12 @@ app.get('/', function(req, res) {
   res.render('index');
 })
 
+// query string data
+// path-string - page?property=value&other_propery=value
+// req.query returns an object with all info from the query
 app.get('/contact', function(req, res) {
-  res.render('contact');
+  res.render('contact', {
+    qs: req.query });
 })
 
 // dynamic routes with ejs views
