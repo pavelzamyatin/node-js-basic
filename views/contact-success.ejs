@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+
+<html>
+
+  <head>
+    <!-- Styles -->
+    <link href="assets/styles.css" type="text/css" rel="stylesheet">
+  </head>
+
+  <body>
+    <% include partials/nav.ejs %>
+
+    <h1>Contact us!</h1>
+    <p>Thanks for getting in touch!</p>
+    <p>You contacted <%= data.who %> from <%= data.department %> department</p>
+    <p>We will reply to you on this email: <%= data.email %></p>
+  </body>
+
+</html>

@@ -30,9 +30,9 @@ app.get('/contact', function(req, res) {
 
 // post request using body-parser module
 app.post('/contact', urlencodedParser, function(req, res) {
-  // console.log(req.body);
+  console.log(req.body);
   if (!req.body) return res.sendStatus(400)
-  res.send(req.body);
+  res.render('contact-success', {data: req.body});
 })
 
 // dynamic routes with ejs views
